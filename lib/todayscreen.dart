@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:html';
+//import 'dart:html';
 
 import 'package:attendance_app/model/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -230,10 +230,6 @@ class _TodayScreenState extends State<TodayScreen> {
                         innerColor: primary,
                         key: key,
                         onSubmit: () async {
-                          Timer(Duration(seconds: 1), () {
-                            key.currentState!.reset();
-                          });
-
                           QuerySnapshot snap = await FirebaseFirestore.instance
                               .collection("Employee")
                               .where('id', isEqualTo: User.employeeId)
@@ -281,8 +277,11 @@ class _TodayScreenState extends State<TodayScreen> {
                                 .set({
                               'checkIn':
                                   DateFormat('hh:mm').format(DateTime.now()),
+                              'checkOut': "--/--",
                             });
                           }
+
+                          key.currentState!.reset();
                         },
                       );
                     },

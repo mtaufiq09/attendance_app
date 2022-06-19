@@ -1,6 +1,8 @@
 import 'package:attendance_app/calendarscreen.dart';
+import 'package:attendance_app/model/user.dart';
 import 'package:attendance_app/profilescreen.dart';
 import 'package:attendance_app/todayscreen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -17,6 +19,8 @@ class _HomescreenState extends State<Homescreen> {
   double screenHeight = 0;
   double screenWidth = 0;
 
+  String id = "";
+
   Color primary = const Color(0xffeef444c);
 
   int currentIndex = 0;
@@ -30,6 +34,24 @@ class _HomescreenState extends State<Homescreen> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+
+    getId();
+  }
+
+  void getId() async {
+    QuerySnapshot snap = await FirebaseFirestore.instance
+        .collection("Employee")
+        .where('id', isEqualTo: User.employeeId)
+        .get();
+
+    setState(() {
+      User.id = snap.docs[0].id;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     screenHeight = MediaQuery.of(context).size.height;
     screenWidth = MediaQuery.of(context).size.width;
@@ -37,10 +59,10 @@ class _HomescreenState extends State<Homescreen> {
     return Scaffold(
       body: IndexedStack(
         index: currentIndex,
-        children: const [
-          CalendarScreen(),
-          TodayScreen(),
-          ProfileScreen(),
+        children: [
+          new CalendarScreen(),
+          new TodayScreen(),
+          new ProfileScreen(),
         ],
       ),
       bottomNavigationBar: Container(
