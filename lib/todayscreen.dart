@@ -4,8 +4,6 @@ import 'dart:async';
 import 'package:attendance_app/model/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:intl/intl.dart';
 import 'package:slide_to_act/slide_to_act.dart';
@@ -68,7 +66,9 @@ class _TodayScreenState extends State<TodayScreen> {
       });
     }
 
+    // ignore: avoid_print
     print(checkIn);
+    // ignore: avoid_print
     print(checkOut);
   }
 
@@ -94,7 +94,7 @@ class _TodayScreenState extends State<TodayScreen> {
           Container(
             alignment: Alignment.centerLeft,
             child: Text(
-              "Employee" + User.employeeId,
+              "Employee ${User.employeeId}",
               style: TextStyle(
                 color: Colors.black26,
                 fontFamily: "NexaBold",

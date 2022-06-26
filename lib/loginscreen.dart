@@ -2,15 +2,14 @@ import 'package:attendance_app/homescreen.dart';
 import 'package:attendance_app/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'profilescreen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key, required AuthCheck child}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _LoginScreenState createState() => _LoginScreenState();
 }
 
@@ -100,6 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         if (password == snap.docs[0]['password']) {
                           id == snap.docs[0]['id'];
                           Fluttertoast.showToast(msg: "Welcome employee $id");
+                          // ignore: avoid_print
                           print("continue");
 
                           sharedPreferences =
@@ -110,12 +110,13 @@ class _LoginScreenState extends State<LoginScreen> {
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Homescreen()));
+                                    builder: (context) => const Homescreen()));
                           });
                         } else {
                           Fluttertoast.showToast(msg: "Password is wrong!");
                         }
                       } catch (e) {
+                        // ignore: avoid_print
                         print(e.toString());
                         String error = " ";
                         if (e.toString() ==
@@ -193,7 +194,7 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
       child: Row(
         children: [
-          Container(
+          SizedBox(
             width: screenWidth / 8,
             child: Icon(
               Icons.person,

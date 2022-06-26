@@ -5,8 +5,6 @@ import 'package:attendance_app/services/location_service.dart';
 import 'package:attendance_app/todayscreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Homescreen extends StatefulWidget {
@@ -42,14 +40,14 @@ class _HomescreenState extends State<Homescreen> {
   }
 
   void _startLocationService() async {
-    locationService().initialize();
+    LocationService().initialize();
 
-    locationService().getLongitude().then((value) {
+    LocationService().getLongitude().then((value) {
       setState(() {
         User.long = value!;
       });
 
-      locationService().getLatitude().then((value) {
+      LocationService().getLatitude().then((value) {
         setState(() {
           User.lat = value!;
         });
@@ -76,10 +74,10 @@ class _HomescreenState extends State<Homescreen> {
     return Scaffold(
       body: IndexedStack(
         index: currentIndex,
-        children: [
-          new CalendarScreen(),
-          new TodayScreen(),
-          new ProfileScreen(),
+        children: const [
+          CalendarScreen(),
+          TodayScreen(),
+          ProfileScreen(),
         ],
       ),
       bottomNavigationBar: Container(
@@ -105,12 +103,12 @@ class _HomescreenState extends State<Homescreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              for (int i = 0; 1 < navigationIcons.length; i++) ...<Expanded>{
+              for (int i = 0; i < navigationIcons.length; i++) ...<Expanded>{
                 Expanded(
                   child: GestureDetector(
                     onTap: () {
                       setState(() {
-                        currentIndex = 1;
+                        currentIndex = 0;
                       });
                     },
                     child: Container(
@@ -124,16 +122,16 @@ class _HomescreenState extends State<Homescreen> {
                             Icon(
                               navigationIcons[i],
                               color:
-                                  1 == currentIndex ? primary : Colors.black54,
-                              size: 1 == currentIndex ? 30 : 26,
+                                  i == currentIndex ? primary : Colors.black54,
+                              size: i == currentIndex ? 30 : 26,
                             ),
                             Container(
-                              margin: EdgeInsets.only(top: 6),
+                              margin: const EdgeInsets.only(top: 6),
                               height: 3,
                               width: 22,
                               decoration: BoxDecoration(
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(40)),
+                                    const BorderRadius.all(Radius.circular(40)),
                                 color: primary,
                               ),
                             ),
