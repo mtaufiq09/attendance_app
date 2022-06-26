@@ -74,6 +74,10 @@ class _AuthCheckState extends State<AuthCheck> {
 
   @override
   Widget build(BuildContext context) {
-    return userAvailable ? const Homescreen() : const LoginScreen();
+    return userAvailable
+        ? const Homescreen()
+        : const LoginScreen(
+            child: AuthCheck(),
+          );
   }
 }

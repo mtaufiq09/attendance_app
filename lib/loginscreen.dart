@@ -1,4 +1,5 @@
 import 'package:attendance_app/homescreen.dart';
+import 'package:attendance_app/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
@@ -7,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'profilescreen.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({Key? key, required AuthCheck child}) : super(key: key);
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -98,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       try {
                         if (password == snap.docs[0]['password']) {
                           id == snap.docs[0]['id'];
-                          Fluttertoast.showToast(msg: "Welcome employee " + id);
+                          Fluttertoast.showToast(msg: "Welcome employee $id");
                           print("continue");
 
                           sharedPreferences =
@@ -175,10 +176,10 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget customField(
-      String hint, TextEditingController controller, bool obscure) {
+      String hint, TextEditingController controller, bool obscureText) {
     return Container(
       width: screenWidth,
-      margin: EdgeInsets.only(bottom: 12),
+      margin: const EdgeInsets.only(bottom: 12),
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.all(Radius.circular(12)),
