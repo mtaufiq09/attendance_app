@@ -1,5 +1,6 @@
 import 'package:attendance_app/homescreen.dart';
 import 'package:attendance_app/main.dart';
+import 'package:attendance_app/model/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -102,6 +103,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           // ignore: avoid_print
                           print("continue");
 
+                          User.employeeId = id;
+                          User.name = snap.docs[0]['Name'];
                           sharedPreferences =
                               await SharedPreferences.getInstance();
                           sharedPreferences
