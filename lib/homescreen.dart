@@ -62,7 +62,8 @@ class _HomescreenState extends State<Homescreen> {
         .get();
 
     setState(() {
-      User.id = snap.docs[0].id;
+      User.id = snap.docs[0]
+          .id; //Exception has occurred.RangeError (RangeError (index): Invalid value: Valid value range is empty: 0)
     });
   }
 
