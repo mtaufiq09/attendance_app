@@ -75,10 +75,10 @@ class _HomescreenState extends State<Homescreen> {
     return Scaffold(
       body: IndexedStack(
         index: currentIndex,
-        children: const [
-          CalendarScreen(),
-          TodayScreen(),
-          ProfileScreen(),
+        children: [
+          new CalendarScreen(),
+          new TodayScreen(),
+          new ProfileScreen(),
         ],
       ),
       bottomNavigationBar: Container(

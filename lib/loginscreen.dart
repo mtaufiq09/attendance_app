@@ -1,6 +1,7 @@
 import 'package:attendance_app/homescreen.dart';
 import 'package:attendance_app/main.dart';
 import 'package:attendance_app/model/user.dart';
+import 'adminscreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -89,6 +90,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       Fluttertoast.showToast(msg: "Employee ID is empty!");
                     } else if (password.isEmpty) {
                       Fluttertoast.showToast(msg: "Password is empty!");
+                    } else if (id == 'admin' && password == 'admin') {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Adminscreen()));
                     } else {
                       QuerySnapshot snap = await FirebaseFirestore.instance
                           .collection("Employee")
