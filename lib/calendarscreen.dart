@@ -60,7 +60,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     final month = await showMonthYearPicker(
                         context: context,
                         initialDate: DateTime.now(),
-                        firstDate: DateTime(2022),
+                        firstDate: DateTime(2020),
                         lastDate: DateTime(2099),
                         builder: (context, child) {
                           return Theme(
@@ -134,7 +134,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                               ),
                               height: 150,
                               decoration: const BoxDecoration(
-                                color: Colors.white,
+                                color: Colors.blue,
                                 boxShadow: [
                                   BoxShadow(
                                     color: Colors.black26,

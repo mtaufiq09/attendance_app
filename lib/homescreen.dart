@@ -5,6 +5,7 @@ import 'package:attendance_app/services/location_service.dart';
 import 'package:attendance_app/todayscreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Homescreen extends StatefulWidget {
@@ -71,14 +72,15 @@ class _HomescreenState extends State<Homescreen> {
   Widget build(BuildContext context) {
     screenHeight = MediaQuery.of(context).size.height;
     screenWidth = MediaQuery.of(context).size.width;
+    // Fluttertoast.showToast(msg: "Welcome user ${User.name}");
 
     return Scaffold(
       body: IndexedStack(
         index: currentIndex,
         children: [
-          new CalendarScreen(),
-          new TodayScreen(),
-          new ProfileScreen(),
+          CalendarScreen(),
+          TodayScreen(),
+          ProfileScreen(),
         ],
       ),
       bottomNavigationBar: Container(
@@ -93,7 +95,7 @@ class _HomescreenState extends State<Homescreen> {
             borderRadius: BorderRadius.all(Radius.circular(40)),
             boxShadow: [
               BoxShadow(
-                color: Colors.black26,
+                color: Colors.black54,
                 blurRadius: 10,
                 offset: Offset(2, 2),
               )
@@ -109,7 +111,7 @@ class _HomescreenState extends State<Homescreen> {
                   child: GestureDetector(
                     onTap: () {
                       setState(() {
-                        currentIndex = 0;
+                        currentIndex = i;
                       });
                     },
                     child: Container(

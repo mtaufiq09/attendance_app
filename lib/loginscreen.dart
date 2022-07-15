@@ -96,12 +96,14 @@ class _LoginScreenState extends State<LoginScreen> {
                           MaterialPageRoute(
                               builder: (context) => const Adminscreen()));
                     } else {
+                      print(id);
+                      //loading
                       QuerySnapshot snap = await FirebaseFirestore.instance
                           .collection("Employee")
                           .where('id', isEqualTo: id)
                           .where('password', isEqualTo: password)
                           .get();
-
+                      //loading off
                       try {
                         if (password == snap.docs[0]['password']) {
                           id == snap.docs[0]['id'];
