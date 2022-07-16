@@ -30,7 +30,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
         children: [
           Container(
             alignment: Alignment.centerLeft,
-            margin: const EdgeInsets.only(top: 32),
+            margin: const EdgeInsets.only(top: 45),
             child: Text(
               "My Attendance",
               style: TextStyle(
@@ -108,8 +108,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
               ),
             ],
           ),
-          SizedBox(
+          Container(
             height: screenHeight / 1.45,
+            margin: const EdgeInsets.only(top: 10),
             child: StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance
                   .collection("Employee")

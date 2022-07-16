@@ -78,9 +78,9 @@ class _HomescreenState extends State<Homescreen> {
       body: IndexedStack(
         index: currentIndex,
         children: [
-          CalendarScreen(),
-          TodayScreen(),
-          ProfileScreen(),
+          new CalendarScreen(),
+          new TodayScreen(),
+          new ProfileScreen(),
         ],
       ),
       bottomNavigationBar: Container(

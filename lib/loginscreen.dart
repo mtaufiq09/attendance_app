@@ -1,6 +1,7 @@
 import 'package:attendance_app/homescreen.dart';
 import 'package:attendance_app/main.dart';
 import 'package:attendance_app/model/user.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'adminscreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
   double screenHeight = 0;
   double screenWidth = 0;
 
+  bool isLoading = false;
   String name = "";
 
   Color primary = const Color(0xffeef444c);
@@ -97,13 +99,13 @@ class _LoginScreenState extends State<LoginScreen> {
                               builder: (context) => const Adminscreen()));
                     } else {
                       print(id);
-                      //loading
+                      setState(() => isLoading = true);
                       QuerySnapshot snap = await FirebaseFirestore.instance
                           .collection("Employee")
                           .where('id', isEqualTo: id)
                           .where('password', isEqualTo: password)
                           .get();
-                      //loading off
+                      setState(() => isLoading = false); //loading off
                       try {
                         if (password == snap.docs[0]['password']) {
                           id == snap.docs[0]['id'];
@@ -154,15 +156,24 @@ class _LoginScreenState extends State<LoginScreen> {
                       borderRadius: const BorderRadius.all(Radius.circular(30)),
                     ),
                     child: Center(
-                      child: Text(
-                        "LOGIN",
-                        style: TextStyle(
-                          fontFamily: "NexaBold",
-                          fontSize: screenWidth / 26,
-                          color: Colors.white,
-                          letterSpacing: 2,
-                        ),
-                      ),
+                      child: isLoading
+                          ? Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: const [
+                                CircularProgressIndicator(color: Colors.white),
+                                SizedBox(width: 24),
+                                Text('Please wait....'),
+                              ],
+                            )
+                          : Text(
+                              "LOGIN",
+                              style: TextStyle(
+                                fontFamily: "NexaBold",
+                                fontSize: screenWidth / 26,
+                                color: Colors.white,
+                                letterSpacing: 2,
+                              ),
+                            ),
                     ),
                   ),
                 ),
