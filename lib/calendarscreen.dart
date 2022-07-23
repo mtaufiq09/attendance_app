@@ -113,23 +113,25 @@ class _CalendarScreenState extends State<CalendarScreen> {
           //To get the data record from database based on the month for checkIn & checkOut
           Container(
             height: screenHeight / 1.45,
-            color: Colors.red,
             margin: const EdgeInsets.only(top: 10),
             child: StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance
                   .collection("Employee")
-                  .doc(User.id)
-                  .collection("Record")
+                  .where('id', isEqualTo: User.employeeId)
                   .snapshots(),
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.hasData) {
                   final snap = snapshot.data!.docs;
+                  print(snap[0]['Name'].toString());
+                  print(snap[0]['DOB'].toString());
+                  print(DateFormat('MMMM/dd/yyyy')
+                      .format(snap[0]['DOB'].toDate()));
                   return ListView.builder(
                     itemCount: snap.length,
                     itemBuilder: (context, index) {
                       return DateFormat('MMMM')
-                                  .format(snap[index]['date'].toDate()) ==
+                                  .format(snap[index]['DOB'].toDate()) ==
                               _month
                           ? Container(
                               margin: EdgeInsets.only(
@@ -165,11 +167,11 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                       child: Center(
                                         child: Text(
                                           DateFormat('EE\ndd').format(
-                                              snap[index]['date'].toDate()),
+                                              snap[index]['DOB'].toDate()),
                                           style: TextStyle(
                                             fontFamily: "NexaBold",
                                             fontSize: screenWidth / 18,
-                                            color: Colors.white,
+                                            color: Colors.purple,
                                           ),
                                         ),
                                       ),
