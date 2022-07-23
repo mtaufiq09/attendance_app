@@ -41,6 +41,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
           ),
           Stack(
             children: [
+              //To view Month that has been choosen from Pick a month
               Container(
                 alignment: Alignment.centerLeft,
                 margin: const EdgeInsets.only(top: 32),
@@ -52,6 +53,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   ),
                 ),
               ),
+              //Gesture detector to open calendar to view month/year
               Container(
                 alignment: Alignment.centerRight,
                 margin: const EdgeInsets.only(top: 32),
@@ -108,8 +110,10 @@ class _CalendarScreenState extends State<CalendarScreen> {
               ),
             ],
           ),
+          //To get the data record from database based on the month for checkIn & checkOut
           Container(
             height: screenHeight / 1.45,
+            color: Colors.red,
             margin: const EdgeInsets.only(top: 10),
             child: StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance

@@ -37,6 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
     screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
       body: Column(
         children: [
@@ -50,11 +51,10 @@ class _LoginScreenState extends State<LoginScreen> {
           //     ),
           //   ),
           //   child:
-          Center(
-            child: Icon(
-              Icons.person,
-              color: Colors.white,
-              size: screenWidth / 5,
+          const Center(
+            child: FittedBox(
+              fit: BoxFit.contain, // otherwise the logo will be tiny
+              child: Image(image: AssetImage('assets/images/logo.png')),
             ),
           ),
           // ),
@@ -82,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 fieldTitle("Employee ID"),
                 customField("Enter your employee id", idController, false),
                 fieldTitle("Password"),
-                customField("Enter your password", passController, true),
+                customField2("Enter your password", passController),
                 GestureDetector(
                   onTap: () async {
                     String id = idController.text.trim();
@@ -228,7 +228,56 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Padding(
               padding: EdgeInsets.only(right: screenWidth / 12),
               child: TextFormField(
-                controller: controller,
+                controller: idController,
+                enableSuggestions: false,
+                autocorrect: false,
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.symmetric(
+                    vertical: screenHeight / 35,
+                  ),
+                  border: InputBorder.none,
+                  hintText: hint,
+                ),
+                maxLines: 1,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget customField2(String hint, TextEditingController controller) {
+    return Container(
+      width: screenWidth,
+      margin: const EdgeInsets.only(bottom: 12),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black26,
+            blurRadius: 10,
+            offset: Offset(2, 2),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          SizedBox(
+            width: screenWidth / 8,
+            child: Icon(
+              Icons.lock,
+              color: primary,
+              size: screenWidth / 15,
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.only(right: screenWidth / 12),
+              child: TextFormField(
+                controller: passController,
+                obscureText: true,
                 enableSuggestions: false,
                 autocorrect: false,
                 decoration: InputDecoration(

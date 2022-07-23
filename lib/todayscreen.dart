@@ -31,6 +31,7 @@ class _TodayScreenState extends State<TodayScreen> {
     _getRecord();
   }
 
+  //To insert the location into the database
   void _getLocation() async {
     List<Placemark> placemark =
         await placemarkFromCoordinates(User.lat, User.long);
@@ -41,6 +42,7 @@ class _TodayScreenState extends State<TodayScreen> {
     });
   }
 
+  //To insert record from app to database
   void _getRecord() async {
     try {
       QuerySnapshot snap = await FirebaseFirestore.instance
@@ -94,6 +96,7 @@ class _TodayScreenState extends State<TodayScreen> {
               ),
             ),
           ),
+          //Name of the user
           Container(
             alignment: Alignment.centerLeft,
             child: Text(
@@ -116,6 +119,7 @@ class _TodayScreenState extends State<TodayScreen> {
               ),
             ),
           ),
+          //Data for check in & check out
           Container(
             margin: const EdgeInsets.only(
               top: 12,
