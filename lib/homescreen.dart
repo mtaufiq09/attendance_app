@@ -7,6 +7,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'loginscreen.dart';
 
 class Homescreen extends StatefulWidget {
   const Homescreen({Key? key}) : super(key: key);
@@ -37,7 +40,41 @@ class _HomescreenState extends State<Homescreen> {
   void initState() {
     super.initState();
     _startLocationService();
-    getId();
+    getId().then((value) {
+      _getCredentials();
+      _getProfilePic();
+    });
+  }
+
+  void _getCredentials() async {
+    try {
+      DocumentSnapshot doc = await FirebaseFirestore.instance
+          .collection("Employee")
+          .doc(User.id)
+          .get();
+      setState(() {
+        User.canEdit = doc['canEdit'];
+        User.name = doc['firstName'];
+        User.email = doc['lastName'];
+        User.birthDate = doc['birthDate'];
+        User.address = doc['address'];
+      });
+    } catch (e) {
+      return;
+    }
+  }
+
+  void _getProfilePic() async {
+    DocumentSnapshot doc = await FirebaseFirestore.instance
+        .collection("Employee")
+        .doc(User.id)
+        .get();
+    setState(() {
+      User.canEdit = doc['name'];
+      User.canEdit = doc['birthDate'];
+      User.canEdit = doc['email'];
+      User.canEdit = doc['address'];
+    });
   }
 
   void _startLocationService() async {
@@ -56,7 +93,7 @@ class _HomescreenState extends State<Homescreen> {
     });
   }
 
-  void getId() async {
+  Future<void> getId() async {
     QuerySnapshot snap = await FirebaseFirestore.instance
         .collection("Employee")
         .where('id', isEqualTo: User.employeeId)
@@ -75,6 +112,8 @@ class _HomescreenState extends State<Homescreen> {
     // Fluttertoast.showToast(msg: "Welcome user ${User.name}");
 
     return Scaffold(
+      //logout button
+
       body: IndexedStack(
         index: currentIndex,
         children: [

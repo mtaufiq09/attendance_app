@@ -18,6 +18,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
   Color primary = const Color(0xffeef444c);
 
   String _month = DateFormat('MMMM').format(DateTime.now());
+
   @override
   Widget build(BuildContext context) {
     screenHeight = MediaQuery.of(context).size.height;
@@ -111,27 +112,23 @@ class _CalendarScreenState extends State<CalendarScreen> {
             ],
           ),
           //To get the data record from database based on the month for checkIn & checkOut
-          Container(
+          SizedBox(
             height: screenHeight / 1.45,
-            margin: const EdgeInsets.only(top: 10),
             child: StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance
                   .collection("Employee")
-                  .where('id', isEqualTo: User.employeeId)
+                  .doc(User.id)
+                  .collection("Record")
                   .snapshots(),
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.hasData) {
                   final snap = snapshot.data!.docs;
-                  print(snap[0]['Name'].toString());
-                  print(snap[0]['DOB'].toString());
-                  print(DateFormat('MMMM/dd/yyyy')
-                      .format(snap[0]['DOB'].toDate()));
                   return ListView.builder(
                     itemCount: snap.length,
                     itemBuilder: (context, index) {
                       return DateFormat('MMMM')
-                                  .format(snap[index]['DOB'].toDate()) ==
+                                  .format(snap[index]['date'].toDate()) ==
                               _month
                           ? Container(
                               margin: EdgeInsets.only(
@@ -167,11 +164,11 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                       child: Center(
                                         child: Text(
                                           DateFormat('EE\ndd').format(
-                                              snap[index]['DOB'].toDate()),
+                                              snap[index]['date'].toDate()),
                                           style: TextStyle(
                                             fontFamily: "NexaBold",
                                             fontSize: screenWidth / 18,
-                                            color: Colors.purple,
+                                            color: Colors.white,
                                           ),
                                         ),
                                       ),

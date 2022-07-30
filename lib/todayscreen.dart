@@ -100,7 +100,7 @@ class _TodayScreenState extends State<TodayScreen> {
           Container(
             alignment: Alignment.centerLeft,
             child: Text(
-              "Employee ${User.name}",
+              "Employee ${User.employeeId}",
               style: TextStyle(
                 color: Colors.black38,
                 fontFamily: "NexaBold",

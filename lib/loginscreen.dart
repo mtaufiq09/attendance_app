@@ -140,6 +140,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         } else {
                           setState(() {
                             error = "Error occured!";
+                            print(error);
                           });
                         }
 
